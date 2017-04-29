@@ -10,7 +10,7 @@ class ReportYear(models.Model):
         return str(self.year)
 
 class Affordable(models.Model):
-    affordable = models.BooleanField()
+    affordable = models.NullBooleanField()
     demographic = models.ForeignKey('Demographic', on_delete=models.CASCADE)
     housing_size = models.ForeignKey('HousingSize', on_delete=models.CASCADE)
     neighborhood = models.ForeignKey('Neighborhood', on_delete=models.CASCADE)
@@ -30,8 +30,8 @@ class NeighborhoodRent(models.Model):
     housing_size = models.ForeignKey('HousingSize', on_delete=models.CASCADE)
     rent_amt = models.IntegerField(default=0, null=True)
     year = models.ForeignKey('ReportYear', on_delete=models.CASCADE, help_text='Year for this rent sample', null=True)
-    
-   
+
+
 class Demographic(models.Model):
     name = models.CharField(max_length=50, help_text='Name of this demographic group', unique=True)
 
@@ -70,7 +70,7 @@ class HousingSize(models.Model):
     def __repr__(self):
         return self.household_type
 
-      
+
 class Neighborhood(models.Model):
     NP_ID = models.IntegerField(null=False, default=-1, help_text='Unique ID different than django ORM pk')
     name = models.CharField(max_length=50, help_text='Neighborhood Name')
